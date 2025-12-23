@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 class WavePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    var paint = Paint()
-      ..color = const Color(0xFF371E6E)
-      ..style = PaintingStyle.fill;
+    var paint = Paint();
+
+    paint.color = const Color(0xFF1A0B42);
+    paint.style = PaintingStyle.fill;
 
     var path = Path();
 

@@ -36,6 +36,7 @@ class OnBoardingButtons extends StatelessWidget {
           width: double.infinity,
           height: 55,
           child: OutlinedButton(
+            style: ButtonStyle(),
             onPressed: () {},
             child: const Text(
               'About',
