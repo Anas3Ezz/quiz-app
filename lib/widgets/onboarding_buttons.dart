@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizapp/screens/levels_screen.dart';
 
 class OnBoardingButtons extends StatelessWidget {
   const OnBoardingButtons({super.key});
@@ -12,7 +13,12 @@ class OnBoardingButtons extends StatelessWidget {
           width: double.infinity,
           height: 55,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LevelsSCreen()),
+              );
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: primaryPurple,
               foregroundColor: Colors.white,
