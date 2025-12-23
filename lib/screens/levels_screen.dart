@@ -34,7 +34,7 @@ class LevelsSCreen extends StatelessWidget {
             crossAxisCount: 2,
             crossAxisSpacing: 20,
             mainAxisSpacing: 30,
-            childAspectRatio: 0.90,
+            childAspectRatio: 0.75,
           ),
           itemCount: levels.length,
           itemBuilder: (context, index) => LevelCard(level: levels[index]),
@@ -72,7 +72,9 @@ class LevelCard extends StatelessWidget {
             );
           }),
         ),
-        Expanded(
+        SizedBox(
+          height: 130,
+          width: 140,
           child: ClipPath(
             clipper: PentagonClipper(),
             child: Container(
