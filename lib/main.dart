@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quizapp/widgets/onboarding_buttons.dart';
+import 'package:quizapp/widgets/wave_painter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,59 +56,7 @@ class OnboardingScreen extends StatelessWidget {
                     ),
                   ),
                   const Spacer(flex: 3),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 55,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.blue,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          side: const BorderSide(
-                            color: Colors.blue,
-                            width: 1.5,
-                          ),
-                        ),
-                      ),
-                      child: const Text(
-                        'Play Now',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.2,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 55,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.blue,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          side: const BorderSide(
-                            color: Colors.blue,
-                            width: 1.5,
-                          ),
-                        ),
-                      ),
-                      child: const Text(
-                        'About',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.2,
-                        ),
-                      ),
-                    ),
-                  ),
+                  OnBoardingButtons(),
                   const SizedBox(height: 40),
                 ],
               ),
@@ -138,40 +88,4 @@ class GradientIcon extends StatelessWidget {
       child: Icon(icon, size: size, color: Colors.white),
     );
   }
-}
-
-class WavePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    var paint = Paint()
-      ..color = const Color(0xFF371E6E)
-      ..style = PaintingStyle.fill;
-
-    var path = Path();
-
-    path.moveTo(0, size.height * 0.5);
-
-    path.quadraticBezierTo(
-      size.width * 0.25,
-      size.height * 0.40,
-      size.width * 0.5,
-      size.height * 0.5,
-    );
-
-    path.quadraticBezierTo(
-      size.width * 0.75,
-      size.height * 0.60,
-      size.width,
-      size.height * 0.5,
-    );
-
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-    path.close();
-
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
