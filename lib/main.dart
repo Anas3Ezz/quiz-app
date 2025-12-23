@@ -11,10 +11,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-      ),
       home: const OnboardingScreen(),
     );
   }
@@ -29,18 +25,13 @@ class OnboardingScreen extends StatelessWidget {
       backgroundColor: Color(0xff260B65),
       body: Stack(
         children: [
-          // 1. Custom Wave Background
           Positioned.fill(child: CustomPaint(painter: WavePainter())),
-
-          // 2. UI Content
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Column(
                 children: [
                   const Spacer(flex: 2),
-
-                  // Gradient Icon
                   const GradientIcon(
                     icon: Icons.lightbulb,
                     size: 100,
@@ -53,7 +44,6 @@ class OnboardingScreen extends StatelessWidget {
                       end: Alignment.bottomRight,
                     ),
                   ),
-
                   const SizedBox(height: 20),
                   const Text(
                     'Creativity starts here',
@@ -63,10 +53,7 @@ class OnboardingScreen extends StatelessWidget {
                       color: Colors.black87,
                     ),
                   ),
-
                   const Spacer(flex: 3),
-
-                  // Action Button
                   SizedBox(
                     width: double.infinity,
                     height: 55,
