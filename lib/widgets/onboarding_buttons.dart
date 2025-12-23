@@ -5,6 +5,7 @@ class OnBoardingButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const Color primaryPurple = Color(0xFF7B51FF);
     return Column(
       children: [
         SizedBox(
@@ -13,38 +14,26 @@ class OnBoardingButtons extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.blue,
+              backgroundColor: primaryPurple,
+              foregroundColor: Colors.white,
               elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-                side: const BorderSide(color: Colors.blue, width: 1.5),
-              ),
             ),
             child: const Text(
               'Play Now',
-              style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.2),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
         ),
-        const SizedBox(height: 40),
+
+        const SizedBox(height: 16),
         SizedBox(
           width: double.infinity,
           height: 55,
-          child: ElevatedButton(
+          child: OutlinedButton(
             onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.blue,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-                side: const BorderSide(color: Colors.blue, width: 1.5),
-              ),
-            ),
             child: const Text(
               'About',
-              style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.2),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ),
         ),

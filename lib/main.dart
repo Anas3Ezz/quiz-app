@@ -34,25 +34,30 @@ class OnboardingScreen extends StatelessWidget {
               child: Column(
                 children: [
                   const Spacer(flex: 2),
-                  const GradientIcon(
-                    icon: Icons.lightbulb,
-                    size: 100,
-                    gradient: LinearGradient(
-                      colors: [
-                        Color.fromARGB(255, 192, 39, 34),
-                        Color.fromARGB(255, 30, 146, 255),
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                  ),
+                  Icon(Icons.lightbulb, color: Colors.white, size: 140),
                   const SizedBox(height: 20),
                   const Text(
-                    'Creativity starts here',
+                    'Quizzles',
+                    style: TextStyle(
+                      fontSize: 55,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    ),
+                  ),
+                  Text(
+                    'Lets play!',
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    'play Now and level up',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
                   const Spacer(flex: 3),
