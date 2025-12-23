@@ -6,8 +6,8 @@ class LevelsSCreen extends StatelessWidget {
   final List<LevelModel> levels = const [
     LevelModel(id: "01", color: Color(0xFF916BFF), stars: 3, isLocked: false),
     LevelModel(id: "02", color: Color(0xFF4FA0FF), stars: 3, isLocked: false),
-    LevelModel(id: "03", color: Color(0xFFFF7E3A), stars: 0, isLocked: false),
-    LevelModel(id: "04", color: Color(0xFF4ED9B4), stars: 0, isLocked: false),
+    LevelModel(id: "03", color: Color(0xFFFF7E3A), stars: 2, isLocked: false),
+    LevelModel(id: "04", color: Color(0xFF4ED9B4), stars: 1, isLocked: false),
     LevelModel(id: "05", color: Color(0xFFFF47A2), stars: 0, isLocked: true),
     LevelModel(id: "06", color: Color(0xFF322365), stars: 0, isLocked: true),
   ];
@@ -15,15 +15,26 @@ class LevelsSCreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A0B42), // Dark Background
+      backgroundColor: const Color(0xFF1A0B42),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color(0xFF1A0B42),
+        title: Text('Levels', style: TextStyle(color: Colors.green)),
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 40),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 20,
             mainAxisSpacing: 30,
-            childAspectRatio: 0.85,
+            childAspectRatio: 0.90,
           ),
           itemCount: levels.length,
           itemBuilder: (context, index) => LevelCard(level: levels[index]),
@@ -43,38 +54,61 @@ class LevelCard extends StatelessWidget {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: List.generate(3, (index) {
             bool isFilled = index < level.stars;
+            bool isMiddle = index == 1;
             return Padding(
-              padding: const EdgeInsets.only(bottom: 8.0, left: 2, right: 2),
+              padding: EdgeInsets.only(
+                bottom: isMiddle ? 14.0 : 0.0,
+                left: 4,
+                right: 4,
+              ),
               child: Icon(
                 Icons.star,
-                size: 24,
+                size: isMiddle ? 32 : 24,
                 color: isFilled ? const Color(0xFFFFC107) : Colors.white24,
               ),
             );
           }),
         ),
-        // Level Shape
         Expanded(
           child: ClipPath(
             clipper: PentagonClipper(),
             child: Container(
               width: double.infinity,
-              decoration: BoxDecoration(color: level.color),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [level.color, level.color],
+                ),
+              ),
               child: Stack(
                 children: [
                   Positioned(
-                    bottom: -10,
-                    right: -10,
-                    child: CircleAvatar(radius: 20),
+                    bottom: -15,
+                    left: -15,
+                    child: Container(
+                      width: 70,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.4),
+                          width: 8,
+                        ),
+                      ),
+                    ),
                   ),
                   Positioned(
-                    top: 10,
-                    left: 20,
-                    child: CircleAvatar(radius: 10),
+                    top: 40,
+                    right: -10,
+                    child: CircleAvatar(
+                      radius: 15,
+                      backgroundColor: Colors.white.withValues(alpha: 0.4),
+                    ),
                   ),
-                  // Text Content
                   Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -84,6 +118,13 @@ class LevelCard extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
+                            shadows: [
+                              Shadow(
+                                color: Colors.black26,
+                                blurRadius: 4,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
                             color: level.isLocked
                                 ? Colors.white38
                                 : Colors.white,
@@ -94,19 +135,36 @@ class LevelCard extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.w900,
+                            shadows: [
+                              Shadow(
+                                color: Colors.black26,
+                                blurRadius: 4,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
                             color: level.isLocked
                                 ? Colors.white38
                                 : Colors.white,
                           ),
                         ),
-                        Icon(
-                          level.isLocked
-                              ? Icons.lock
-                              : Icons.lock_open_outlined,
-                        ),
                       ],
                     ),
                   ),
+                  if (level.isLocked)
+                    Positioned.fill(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black.withValues(alpha: 0.4),
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            Icons.lock,
+                            size: 50,
+                            color: Colors.yellow,
+                          ),
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -117,23 +175,30 @@ class LevelCard extends StatelessWidget {
   }
 }
 
-// Custom Shape Clipper
 class PentagonClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
-    double r = 15.0; // Roundness radius
+    final double width = size.width;
+    final double height = size.height;
+    final double radius = 15.0;
 
-    path.moveTo(size.width * 0.5, 0); // Top Center
-    path.lineTo(size.width, size.height * 0.3); // Top Right
-    path.lineTo(size.width, size.height); // Bottom Right
-    path.lineTo(0, size.height); // Bottom Left
-    path.lineTo(0, size.height * 0.3); // Top Left
+    path.moveTo(width * 0.5 - radius, radius * 0.5);
+    path.quadraticBezierTo(width * 0.5, 0, width * 0.5 + radius, radius * 0.5);
+
+    path.lineTo(width - radius, height * 0.3);
+    path.quadraticBezierTo(width, height * 0.35, width, height * 0.45);
+
+    path.lineTo(width, height - radius);
+    path.quadraticBezierTo(width, height, width - radius, height);
+
+    path.lineTo(radius, height);
+    path.quadraticBezierTo(0, height, 0, height - radius);
+
+    path.lineTo(0, height * 0.45);
+    path.quadraticBezierTo(0, height * 0.35, radius, height * 0.3);
+
     path.close();
-
-    // To get the smooth rounded corners from your image,
-    // we use a simplified version, but for production,
-    // you'd use path.quadraticBezierTo for the edges.
     return path;
   }
 
@@ -141,7 +206,6 @@ class PentagonClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
-// Data Model
 class LevelModel {
   final String id;
   final Color color;
